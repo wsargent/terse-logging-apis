@@ -1,0 +1,29 @@
+pluginManagement {
+    repositories {
+        jcenter()
+        maven { url 'https://plugins.gradle.org/m2/' }
+    }
+}
+
+rootProject.name = 'terse-slf4j-apis'
+
+def includeProject = { String projectName ->
+    File projectDir = new File(settingsDir, projectName)
+    String buildFileName = "${projectName}.gradle"
+
+    assert projectDir.isDirectory()
+    assert new File(projectDir, buildFileName).isFile()
+
+    include projectName
+    project(":${projectName}").projectDir    = projectDir
+    project(":${projectName}").buildFileName = buildFileName
+}
+
+includeProject 'logback-context'
+includeProject 'logback-guice-example'
+includeProject 'logstash-logback-context'
+includeProject 'slf4j-ext'
+includeProject 'slf4j-gen'
+includeProject 'logback-proxy'
+includeProject 'logback-predicate'
+//includeProject 'guide'
